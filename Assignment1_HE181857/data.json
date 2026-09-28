@@ -13,13 +13,6 @@
       "content": "Node.js is a JavaScript runtime environment.",
       "author": "Nguyen Van A",
       "date": "2026-09-01"
-    },
-    {
-      "id": 5,
-      "title": "Test add mew",
-      "content": "Hehehe",
-      "author": "Nguyen Van D",
-      "date": "2026-09-01"
     }
   ],
   "comments": [
@@ -39,9 +32,9 @@
     },
     {
       "id": 4,
-      "articleId": 2,
+      "articleId": 4,
       "author": "Tran Thi G",
-      "content": "The routing example is easy to understand.",
+      "content": "The routing",
       "date": "2026-09-05"
     },
     {
@@ -71,6 +64,13 @@
       "author": "Hoang Van E",
       "content": "Hehe Test add comment",
       "date": "2026-09-04"
+    },
+    {
+      "id": 5,
+      "articleId": 4,
+      "author": "Tran Nam Anh",
+      "content": "Add new comment to article id 4",
+      "date": "2026-09-25"
     }
   ]
 }

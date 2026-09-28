@@ -1,0 +1,17 @@
+{
+  "name": "exercise_8",
+  "version": "1.0.0",
+  "description": "Exercise 8: Handling errors in Express",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "exercise1": "node app_exercise1.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}

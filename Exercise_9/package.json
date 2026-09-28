@@ -1,0 +1,17 @@
+{
+  "name": "exercise_9",
+  "version": "1.0.0",
+  "description": "Exercise 9: Custom Middleware in Express",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "exercise1": "node app_exercise1.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
