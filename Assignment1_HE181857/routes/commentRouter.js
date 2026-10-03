@@ -65,8 +65,8 @@ commentRouter.post('/', async (req, res) => {
         }
 
         // Tự động sinh ID
-        const newId = data.articles.length > 0
-            ? Math.max(...data.articles.map(p => p.id)) + 1
+        const newId = data.comments.length > 0
+            ? Math.max(...data.comments.map(p => p.id)) + 1
             : 1;
 
         const newComment = {
