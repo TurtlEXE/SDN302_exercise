@@ -13,7 +13,7 @@ const getAllLoans = async (req, res) => {
 // Get a single loan by ID
 const getLoanById = async (req, res) => {
     try {
-        const loan = await Loan.findById(req.params.id);
+        const loan = await Loan.findById(req.params.id).populate('member_id').populate('items.book_id');
         if (!loan) {
             return res.status(404).json({ message: 'Loan not found' });
         }
