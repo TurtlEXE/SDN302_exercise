@@ -70,23 +70,19 @@ const deleteLoan = async (req, res) => {
 // Return a loan: /api/loans/:id/return
 const returnLoan = async (req, res) => {
     try {
-        // Tìm borrowing record
         const loan = await Loan.findById(req.params.id);
         if (!loan) {
             return res.status(404).json({ message: 'Loan not found' });
         }
 
-        // Prevent the same borrowing record from being returned more than once
         if (loan.status === 'Returned') {
             return res.status(400).json({ message: 'Loan has already been returned' });
         }
 
-        // Update status thành returned
         loan.status = 'Returned';
         loan.returnDate = new Date();
         await loan.save();
 
-        // Restore book quantity
         if (loan.items && loan.items.length > 0) {
             for (const item of loan.items) {
                 await Book.findByIdAndUpdate(item.book_id, {
