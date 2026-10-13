@@ -1,0 +1,75 @@
+const Loan = require('../models/Loan');
+
+// Get all loans
+const getAllLoans = async (req, res) => {
+    try {
+        const loans = await Loan.find().populate('member_id').populate('items.book_id');
+        res.status(200).json(loans);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// Get a single loan by ID
+const getLoanById = async (req, res) => {
+    try {
+        const loan = await Loan.findById(req.params.id);
+        if (!loan) {
+            return res.status(404).json({ message: 'Loan not found' });
+        }
+        res.status(200).json(loan);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// Create a new loan
+const createLoan = async (req, res) => {
+    try {
+        const { member_id, items, borrowDate, dueDate, returnDate, status } = req.body;
+        const newLoan = new Loan({ member_id, items, borrowDate, dueDate, returnDate, status });
+        await newLoan.save();
+        res.status(201).json(newLoan);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
+// Update an existing loan
+const updateLoan = async (req, res) => {
+    try {
+        const { member_id, items, borrowDate, dueDate, returnDate, status } = req.body;
+        const updatedLoan = await Loan.findByIdAndUpdate(
+            req.params.id,
+            { member_id, items, borrowDate, dueDate, returnDate, status },
+            { new: true, runValidators: true }
+        );
+        if (!updatedLoan) {
+            return res.status(404).json({ message: 'Loan not found' });
+        }
+        res.status(200).json(updatedLoan);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
+// Delete a loan
+const deleteLoan = async (req, res) => {
+    try {
+        const deletedLoan = await Loan.findByIdAndDelete(req.params.id);
+        if (!deletedLoan) {
+            return res.status(404).json({ message: 'Loan not found' });
+        }
+        res.status(200).json({ message: 'Loan deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+module.exports = {
+    getAllLoans,
+    getLoanById,
+    createLoan,
+    updateLoan,
+    deleteLoan
+};
