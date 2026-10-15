@@ -4,7 +4,9 @@ const Book = require('../models/Book');
 // Get all loans
 const getAllLoans = async (req, res) => {
     try {
-        const loans = await Loan.find().populate('member_id').populate('items.book_id');
+        const loans = await Loan.find()
+            .populate({ path: 'member_id', select: 'fullName email phone' })
+            .populate({ path: 'items.book_id', select: 'title author' });
         res.status(200).json(loans);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -14,7 +16,9 @@ const getAllLoans = async (req, res) => {
 // Get a single loan by ID
 const getLoanById = async (req, res) => {
     try {
-        const loan = await Loan.findById(req.params.id).populate('member_id').populate('items.book_id');
+        const loan = await Loan.findById(req.params.id)
+            .populate({ path: 'member_id', select: 'fullName email phone' })
+            .populate({ path: 'items.book_id', select: 'title author' });
         if (!loan) {
             return res.status(404).json({ message: 'Loan not found' });
         }
