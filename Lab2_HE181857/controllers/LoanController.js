@@ -1,5 +1,6 @@
 const Loan = require('../models/Loan');
 const Book = require('../models/Book');
+const Member = require('../models/Member');
 
 // Get all loans
 const getAllLoans = async (req, res) => {
@@ -32,6 +33,24 @@ const getLoanById = async (req, res) => {
 const createLoan = async (req, res) => {
     try {
         const { member_id, items, borrowDate, dueDate, returnDate, status } = req.body;
+
+        const member = await Member.findById(member_id);
+        if (!member) {
+            return res.status(404).json({ message: 'Member not found' });
+        }
+        if (!member.isActive) {
+            return res.status(400).json({ message: 'Only active members are allowed to borrow books' });
+        }
+
+        if (items && Array.isArray(items)) {
+            for (const item of items) {
+                const book = await Book.findById(item.book_id);
+                if (!book) {
+                    return res.status(404).json({ message: `Book not found with ID: ${item.book_id}` });
+                }
+            }
+        }
+
         const newLoan = new Loan({ member_id, items, borrowDate, dueDate, returnDate, status });
         await newLoan.save();
         res.status(201).json(newLoan);
