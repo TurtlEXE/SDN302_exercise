@@ -1,0 +1,16 @@
+{
+  "name": "exercise_15",
+  "version": "1.0.0",
+  "description": "Exercise 15: Restful API with Node app, MongoDB and Mongoose",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": ["restful-api", "express", "mongoose", "mongodb"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1",
+    "mongoose": "^9.11.0"
+  }
+}

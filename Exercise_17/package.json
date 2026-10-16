@@ -1,0 +1,16 @@
+{
+  "name": "exercise_17",
+  "version": "1.0.0",
+  "description": "Exercise 17: Applying Model-View-Controller (MVC) Pattern",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": ["mvc", "express", "mongoose", "controller", "architecture"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1",
+    "mongoose": "^9.11.0"
+  }
+}

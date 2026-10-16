@@ -1,0 +1,18 @@
+{
+  "name": "exercise_14",
+  "version": "1.0.0",
+  "description": "Exercise 14: Introduction to Mongoose ODM and Schema Validation",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test:error": "node test-validation-error.js",
+    "test:success": "node test-insert-success.js"
+  },
+  "keywords": ["mongoose", "mongodb", "express", "validation"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1",
+    "mongoose": "^9.11.0"
+  }
+}

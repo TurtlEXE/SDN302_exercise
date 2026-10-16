@@ -1,0 +1,38 @@
+### Exercise 16: Mongoose Population Test Requests
+
+### 1. Create an Article first
+POST http://localhost:3000/articles
+Content-Type: application/json
+
+{
+    "title": "Exploring the Hidden Gems of Paris",
+    "text": "Paris is known for its iconic landmarks like the Eiffel Tower and Louvre, but the city hides some lesser-known treasures. In this article, we'll explore some hidden gems of Paris that offer unique experiences away from the tourist crowds. From charming cafes tucked away in quiet lanes to serene gardens, Paris is full of surprises waiting to be discovered.",
+    "tags": ["Paris", "Travel", "Guide"]
+}
+
+### 2. GET all articles (Copy the _id of the article created above)
+GET http://localhost:3000/articles
+
+### 3. Create a Comment referencing the Article _id (Replace with actual article _id)
+POST http://localhost:3000/comments
+Content-Type: application/json
+
+{
+    "body": "Absolutely love this guide! Can't wait to explore these places.",
+    "article": "<REPLACE_WITH_ARTICLE_ID>"
+}
+
+### 4. Create another Comment
+POST http://localhost:3000/comments
+Content-Type: application/json
+
+{
+    "body": "Paris is always full of surprises. Great article!",
+    "article": "<REPLACE_WITH_ARTICLE_ID>"
+}
+
+### 5. GET all comments with POPULATED article (Matches Image 9 in Exercise 16)
+GET http://localhost:3000/comments
+
+### 6. GET a single comment with POPULATED article
+GET http://localhost:3000/comments/<REPLACE_WITH_COMMENT_ID>

@@ -1,0 +1,40 @@
+### Exercise 17: Applying MVC Pattern - Test Requests
+
+### 1. Get all articles (via articleController.findAll)
+GET http://localhost:3000/articles
+
+### 2. Create an article (via articleController.create)
+POST http://localhost:3000/articles
+Content-Type: application/json
+
+{
+    "title": "Applying MVC in Node.js and Express",
+    "text": "Model-View-Controller pattern helps keep code clean and decoupled. Models manage database schemas, controllers handle business logic, and routers define endpoints.",
+    "tags": ["NodeJS", "Express", "MVC", "Architecture"]
+}
+
+### 3. Get article by ID (via articleController.findById)
+GET http://localhost:3000/articles/<REPLACE_WITH_ARTICLE_ID>
+
+### 4. Update article by ID (via articleController.update)
+PUT http://localhost:3000/articles/<REPLACE_WITH_ARTICLE_ID>
+Content-Type: application/json
+
+{
+    "title": "Mastering MVC Pattern in Express and Mongoose"
+}
+
+### 5. Create a comment for the article (via commentController.create)
+POST http://localhost:3000/comments
+Content-Type: application/json
+
+{
+    "body": "Great explanation of the MVC pattern!",
+    "article": "<REPLACE_WITH_ARTICLE_ID>"
+}
+
+### 6. Get all comments with populated article (via commentController.findAll)
+GET http://localhost:3000/comments
+
+### 7. Delete article by ID (via articleController.delete)
+DELETE http://localhost:3000/articles/<REPLACE_WITH_ARTICLE_ID>
