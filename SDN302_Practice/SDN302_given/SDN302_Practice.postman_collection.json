@@ -1,0 +1,345 @@
+{
+  "info": {
+    "name": "SDN302_Practice_API",
+    "description": "Collection for testing SDN302 Practice REST API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:9999",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "01. Auth - Login Valid (POST /auth/tokens)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "if (jsonData.token) {",
+              "    pm.collectionVariables.set('token', jsonData.token);",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"storeadmin\",\n  \"pass\": \"Store@123\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/auth/tokens",
+          "host": ["{{baseUrl}}"],
+          "path": ["auth", "tokens"]
+        }
+      }
+    },
+    {
+      "name": "02. Auth - Login Invalid Credentials (POST /auth/tokens)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"storeadmin\",\n  \"pass\": \"WrongPass\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/auth/tokens",
+          "host": ["{{baseUrl}}"],
+          "path": ["auth", "tokens"]
+        }
+      }
+    },
+    {
+      "name": "03. Products - GET All (Without Token -> 401)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/products",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "products"]
+        }
+      }
+    },
+    {
+      "name": "04. Products - GET All (With Token -> 200)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/products",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "products"]
+        }
+      }
+    },
+    {
+      "name": "05. Products - GET One by ID (GET /api/products/:id)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/products/6936f4c6f2937fc51e5f7cab",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "products", "6936f4c6f2937fc51e5f7cab"]
+        }
+      }
+    },
+    {
+      "name": "06. Products - POST Create (POST /api/products)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Monitor Dell UltraSharp\",\n  \"price\": 12000000,\n  \"category\": \"Monitor\",\n  \"stock\": 15\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/products",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "products"]
+        }
+      }
+    },
+    {
+      "name": "07. Products - PUT Update (PUT /api/products/:id)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"price\": 36000000,\n  \"stock\": 18\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/products/6936f4c6f2937fc51e5f7cab",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "products", "6936f4c6f2937fc51e5f7cab"]
+        }
+      }
+    },
+    {
+      "name": "08. Products - DELETE Referenced by Order -> 409",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/products/6936f4c6f2937fc51e5f7cab",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "products", "6936f4c6f2937fc51e5f7cab"]
+        }
+      }
+    },
+    {
+      "name": "09. Orders - GET All (GET /api/orders)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/orders",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "orders"]
+        }
+      }
+    },
+    {
+      "name": "10. Orders - GET One by ID (GET /api/orders/:id)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/orders/6936f4c6f2937fc51e5f7cb0",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "orders", "6936f4c6f2937fc51e5f7cb0"]
+        }
+      }
+    },
+    {
+      "name": "11. Orders - POST Create (Server calculates total)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"customer_id\": \"6936f4c6f2937fc51e5f7ca7\",\n  \"items\": [\n    {\n      \"product_id\": \"6936f4c6f2937fc51e5f7cac\",\n      \"quantity\": 2\n    }\n  ],\n  \"payment_method\": \"COD\",\n  \"status\": \"Pending\",\n  \"order_date\": \"2026-10-27T00:00:00.000Z\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/orders",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "orders"]
+        }
+      }
+    },
+    {
+      "name": "12. Orders - PUT Update (PUT /api/orders/:id)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"Completed\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/orders/6936f4c6f2937fc51e5f7cb0",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "orders", "6936f4c6f2937fc51e5f7cb0"]
+        }
+      }
+    },
+    {
+      "name": "13. Orders - DELETE Order (DELETE /api/orders/:id)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/orders/6936f4c6f2937fc51e5f7cb1",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "orders", "6936f4c6f2937fc51e5f7cb1"]
+        }
+      }
+    }
+  ]
+}

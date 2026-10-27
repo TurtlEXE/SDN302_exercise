@@ -1,0 +1,9 @@
+{
+  "name": "sdn302-given",
+  "version": "1.0.0",
+  "description": "SDN302 Practice Exam Root Proxy",
+  "scripts": {
+    "start": "node resource/server.js",
+    "seed": "node resource/seed.js"
+  }
+}
