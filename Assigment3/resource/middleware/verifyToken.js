@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 
+// Middleware xác thực JWT token
 const verifyToken = (req, res, next) => {
     try {
         const authHeader = req.headers['authorization'] || req.headers['Authorization'];
@@ -8,6 +9,7 @@ const verifyToken = (req, res, next) => {
             return res.status(401).json({ message: 'Authorization header is missing' });
         }
 
+        // Định dạng header: Bearer <token>
         const parts = authHeader.trim().split(' ');
         if (parts.length !== 2 || parts[0] !== 'Bearer') {
             return res.status(401).json({ message: 'Invalid token format. Expected Bearer <token>' });

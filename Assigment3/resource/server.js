@@ -17,8 +17,10 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Kết nối cơ sở dữ liệu
 connectDB();
 
+// Tài khoản đăng nhập mẫu
 const user = {
     id: 1,
     studentId: "HE181857",
@@ -26,6 +28,7 @@ const user = {
     password: "he181857@123"
 };
 
+// Xử lý đăng nhập và cấp token
 const loginHandler = (req, res) => {
     const { email, password } = req.body || {};
 
@@ -51,13 +54,16 @@ const loginHandler = (req, res) => {
 
 app.post('/api/auth/login', loginHandler);
 
+// Đăng ký routes
 app.use('/api/classes', classRoutes);
 app.use('/api/students', studentRoutes);
 
+// Xử lý route không tồn tại
 app.use((req, res) => {
     res.status(404).json({ message: `Cannot ${req.method} ${req.originalUrl}` });
 });
 
+// Xử lý lỗi toàn cục
 app.use((err, req, res, next) => {
     console.error('Unhandled error:', err);
     res.status(500).json({ message: 'Internal server error', error: err.message });
