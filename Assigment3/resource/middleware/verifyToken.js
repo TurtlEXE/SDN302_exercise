@@ -1,11 +1,5 @@
 const jwt = require('jsonwebtoken');
 
-// Implement middleware authentication
-// Extract the token from the request Authorization header
-// The token must follow this format: Bearer <token>
-// Use JWT_SECRET in .env to verify token
-// If token missing, invalid or expired, return HTTP 401 and deny access to the API
-// If valid, store the decoded payload in req.user and call next() to process next middleware/controller
 const verifyToken = (req, res, next) => {
     try {
         const authHeader = req.headers['authorization'] || req.headers['Authorization'];
@@ -38,4 +32,3 @@ const verifyToken = (req, res, next) => {
 };
 
 module.exports = verifyToken;
-

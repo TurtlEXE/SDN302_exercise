@@ -5,7 +5,7 @@ const attendanceSchema = new mongoose.Schema(
         studentId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Student',
-            required: [true, 'Student ID is requirexd']
+            required: [true, 'Student ID is required']
         },
         classId: {
             type: mongoose.Schema.Types.ObjectId,
